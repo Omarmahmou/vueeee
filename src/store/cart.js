@@ -39,7 +39,8 @@ const PROMO_CODES = {
 };
 
 export const cartState = vue.observable({
-  items: JSON.parse(localStorage.getItem("cart_items" || "[]")),
+  items: JSON.parse(localStorage.getItem("cart_items") || "[]"),
+
   isOpen: false,
   couponInput: "",
   discountApplied: false,
@@ -176,15 +177,18 @@ export const cartGetters = {
   get discountAmount() {
     if (!cartState.discountApplied || !cartState.activePromo) return 0;
     const promo = cartState.activePromo;
-    if (promo.type === "percent") return cartGetters.subtotal * (promo.value / 100);
-    if (promo.type === "fixed")   return Math.min(promo.value, cartGetters.subtotal);
+    if (promo.type === "percent")
+      return cartGetters.subtotal * (promo.value / 100);
+    if (promo.type === "fixed")
+      return Math.min(promo.value, cartGetters.subtotal);
     return 0;
   },
   get itemDiscountRate() {
     if (!cartState.discountApplied || !cartState.activePromo) return 0;
     const promo = cartState.activePromo;
     if (promo.type === "percent") return promo.value / 100;
-    if (promo.type === "fixed")   return cartGetters.discountAmount / cartGetters.subtotal;
+    if (promo.type === "fixed")
+      return cartGetters.discountAmount / cartGetters.subtotal;
     return 0;
   },
   get discountLabel() {
