@@ -118,15 +118,18 @@
           </transition>
         </div>
 
-        <button class="checkout-btn">Proceed To Checkout</button>
+        <button @click="handleCheckout" class="checkout-btn">
+          Proceed To Checkout
+        </button>
         <button class="clear-all-btn" @click="cartMethods.clearCart()">
-           clear cart
+          clear cart
         </button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { authMethods } from "@/store/auth";
 import { cartState, cartMethods, cartGetters } from "@/store/cart";
 
 export default {
@@ -142,6 +145,13 @@ export default {
         return Array.isArray(parsed) ? parsed[0] : url;
       } catch {
         return item.images[0];
+      }
+    },
+    handleCheckout() {
+      if (authMethods.isLoggedIn()) {
+        alert("Order placed successfully!");
+      } else {
+        this.$router.push({ path: "/login", query: { redirect: "/cart" } });
       }
     },
   },

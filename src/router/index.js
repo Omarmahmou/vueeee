@@ -18,15 +18,15 @@ const routes = [
   {
     path: "/products",
     // component: { render: () => null },
-    component:ProductPage,
-    meta: { requiresAuth: true },
+    component: ProductPage,
+    // meta: { requiresAuth: true },
   },
-  { path: "/cart", component: cartPage, meta: { requiresAuth: true } },
+  { path: "/cart", component: cartPage },
   {
     path: "/products/:id",
     component: ProductPage,
     props: true,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
 ];
 
